@@ -1,0 +1,245 @@
+{
+  "ok": [
+    {
+      "remote": "images/logo/1.png",
+      "local": "images/logo/1.png",
+      "size": 19351
+    },
+    {
+      "remote": "images/slides/mob-banner-3.jpg",
+      "local": "images/slides/mob-banner-3.jpg",
+      "size": 43799
+    },
+    {
+      "remote": "images/home/why-choose-us.jpg",
+      "local": "images/home/why-choose-us.jpg",
+      "size": 67851
+    },
+    {
+      "remote": "images/2.jpg",
+      "local": "images/home/welcome-1.jpg",
+      "size": 47416
+    },
+    {
+      "remote": "images/3.jpg",
+      "local": "images/home/welcome-2.jpg",
+      "size": 54938
+    },
+    {
+      "remote": "treatments/treatment_1.jpg",
+      "local": "images/treatments/treatment_1.jpg",
+      "size": 40914
+    },
+    {
+      "remote": "treatments/treatment_4.jpg",
+      "local": "images/treatments/treatment_4.jpg",
+      "size": 26330
+    },
+    {
+      "remote": "treatments/treatment_6.jpg",
+      "local": "images/treatments/treatment_6.jpg",
+      "size": 29738
+    },
+    {
+      "remote": "treatments/treatment_7.jpg",
+      "local": "images/treatments/treatment_7.jpg",
+      "size": 43734
+    },
+    {
+      "remote": "treatments/treatment_8.jpg",
+      "local": "images/treatments/treatment_8.jpg",
+      "size": 42342
+    },
+    {
+      "remote": "treatments/treatment_9.jpg",
+      "local": "images/treatments/treatment_9.jpg",
+      "size": 37929
+    },
+    {
+      "remote": "treatments/treatment_10.jpg",
+      "local": "images/treatments/treatment_10.jpg",
+      "size": 32227
+    },
+    {
+      "remote": "treatments/treatment_12.jpg",
+      "local": "images/treatments/treatment_12.jpg",
+      "size": 66290
+    },
+    {
+      "remote": "treatments/treatment_13.jpg",
+      "local": "images/treatments/treatment_13.jpg",
+      "size": 37328
+    },
+    {
+      "remote": "treatments/treatment_14.jpg",
+      "local": "images/treatments/treatment_14.jpg",
+      "size": 29725
+    },
+    {
+      "remote": "treatments/treatment_15.jpg",
+      "local": "images/treatments/treatment_15.jpg",
+      "size": 37870
+    },
+    {
+      "remote": "treatments/treatment_16.jpg",
+      "local": "images/treatments/treatment_16.jpg",
+      "size": 36656
+    },
+    {
+      "remote": "treatments/treatment_17.jpg",
+      "local": "images/treatments/treatment_17.jpg",
+      "size": 66738
+    },
+    {
+      "remote": "treatments/treatment_18.jpg",
+      "local": "images/treatments/treatment_18.jpg",
+      "size": 34449
+    },
+    {
+      "remote": "treatments/treatment_19.jpg",
+      "local": "images/treatments/treatment_19.jpg",
+      "size": 49900
+    },
+    {
+      "remote": "treatments/treatment_20.jpg",
+      "local": "images/treatments/treatment_20.jpg",
+      "size": 56895
+    },
+    {
+      "remote": "images/single-overlay.png",
+      "local": "images/treatments/tarpanam.png",
+      "size": 58947
+    },
+    {
+      "remote": "images/product/product-img-01.png",
+      "local": "images/product/product-img-01.png",
+      "size": 180748
+    },
+    {
+      "remote": "images/product/product-img-02.png",
+      "local": "images/product/product-img-02.png",
+      "size": 139051
+    },
+    {
+      "remote": "images/product/product-img-03.jpg",
+      "local": "images/product/product-img-03.jpg",
+      "size": 51757
+    },
+    {
+      "remote": "images/product/product-img-04.jpg",
+      "local": "images/product/product-img-04.jpg",
+      "size": 41869
+    },
+    {
+      "remote": "images/product/product-img-05.jpg",
+      "local": "images/product/product-img-05.jpg",
+      "size": 56630
+    },
+    {
+      "remote": "images/product/product-img-06.jpg",
+      "local": "images/product/product-img-06.jpg",
+      "size": 39373
+    },
+    {
+      "remote": "images/specialities/beauty-and-skin.jpg",
+      "local": "images/specialities/beauty-and-skin.jpg",
+      "size": 73524
+    },
+    {
+      "remote": "images/specialities/pre-and-post-natal-care.jpg",
+      "local": "images/specialities/pre-and-post-natal-care.jpg",
+      "size": 55754
+    },
+    {
+      "remote": "images/specialities/stroke-rehabilitation.jpg",
+      "local": "images/specialities/stroke-rehabilitation.jpg",
+      "size": 34658
+    },
+    {
+      "remote": "images/specialities/senior-care.jpg",
+      "local": "images/specialities/senior-care.jpg",
+      "size": 36813
+    },
+    {
+      "remote": "images/specialities/weight-loss.jpg",
+      "local": "images/specialities/weight-loss.jpg",
+      "size": 43216
+    },
+    {
+      "remote": "blogs/blog_2.jpg",
+      "local": "images/blog/blog_2.jpg",
+      "size": 329066
+    },
+    {
+      "remote": "blogs/blog_5.jpg",
+      "local": "images/blog/blog_5.jpg",
+      "size": 87882
+    },
+    {
+      "remote": "images/blog/blog-02.jpg",
+      "local": "images/gallery/blog-02.jpg",
+      "size": 21275
+    },
+    {
+      "remote": "images/blog/blog-03.jpg",
+      "local": "images/gallery/blog-03.jpg",
+      "size": 22417
+    },
+    {
+      "remote": "images/blog/blog-04.jpg",
+      "local": "images/gallery/blog-04.jpg",
+      "size": 26940
+    },
+    {
+      "remote": "images/single-img-01.jpg",
+      "local": "images/gallery/single-img-01.jpg",
+      "size": 68583
+    },
+    {
+      "remote": "images/single-img-02.jpg",
+      "local": "images/gallery/single-img-02.jpg",
+      "size": 129877
+    },
+    {
+      "remote": "images/insurance/Insurance-1.webp",
+      "local": "images/insurance/Insurance-1.webp",
+      "size": 7108
+    },
+    {
+      "remote": "images/insurance/Insurance-2.webp",
+      "local": "images/insurance/Insurance-2.webp",
+      "size": 10398
+    },
+    {
+      "remote": "images/insurance/Insurance-3.webp",
+      "local": "images/insurance/Insurance-3.webp",
+      "size": 6312
+    },
+    {
+      "remote": "images/insurance/Insurance-4.webp",
+      "local": "images/insurance/Insurance-4.webp",
+      "size": 8098
+    },
+    {
+      "remote": "images/insurance/Insurance-5.webp",
+      "local": "images/insurance/Insurance-5.webp",
+      "size": 8364
+    },
+    {
+      "remote": "images/insurance/Insurance-6.webp",
+      "local": "images/insurance/Insurance-6.webp",
+      "size": 7822
+    },
+    {
+      "remote": "images/insurance/Insurance-7.webp",
+      "local": "images/insurance/Insurance-7.webp",
+      "size": 9212
+    },
+    {
+      "remote": "images/team-member/1.png",
+      "local": "images/team/1.png",
+      "size": 534948
+    }
+  ],
+  "missing": []
+}

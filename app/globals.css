@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f7f2e8;
+  --surface: #efe7d6;
+  --sand: #dccba8;
+  --olive: #6f7d3c;
+  --olive-deep: #3f4a28;
+  --clay: #b8684a;
+  --turmeric: #c99a3b;
+  --ink: #2f2a22;
+  --ink-soft: #6b6355;
+  --oat: #f7f2e8;
+  --shadow-warm: 0 8px 28px rgba(47, 42, 34, 0.08);
+  --radius-card: 24px;
+  --radius-image: 22px;
+  --container-max: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --max-content: var(--container-max);
+}
+
+@media (min-width: 1921px) {
+  :root {
+    --container-max: 1600px;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sand: var(--sand);
+  --color-olive: var(--olive);
+  --color-olive-deep: var(--olive-deep);
+  --color-clay: var(--clay);
+  --color-turmeric: var(--turmeric);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-oat: var(--oat);
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-dm-sans);
+  --shadow-warm: var(--shadow-warm);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: clip;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+
+.container-site {
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+}
+
+/* Same left/right edges as .container-site at every breakpoint */
+.container-breakout {
+  width: 100%;
+  padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+}
+
+.arch-mask {
+  border-radius: 999px 999px 24px 24px;
+}
+
+.sanskrit {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+}
+
+.logo-olive {
+  background-color: var(--olive-deep);
+  -webkit-mask-image: var(--logo-url);
+  mask-image: var(--logo-url);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+/* Force WCAG AA oat text on olive / olive-deep surfaces */
+.on-olive,
+.on-olive-deep {
+  color: var(--oat);
+}
+
+.on-olive :where(h1, h2, h3, h4),
+.on-olive-deep :where(h1, h2, h3, h4) {
+  color: var(--oat) !important;
+}
+
+.on-olive :where(p, li, a, span, button),
+.on-olive-deep :where(p, li, a, span, button) {
+  color: color-mix(in srgb, var(--oat) 88%, transparent);
+}
+
+.on-olive :where(h1, h2, h3, h4) span,
+.on-olive-deep :where(h1, h2, h3, h4) span {
+  color: var(--oat) !important;
+}
+
+.on-olive a:hover,
+.on-olive-deep a:hover,
+.on-olive button:hover,
+.on-olive-deep button:hover {
+  color: var(--turmeric);
+}
+
+.on-olive .btn-oat,
+.on-olive-deep .btn-oat {
+  color: var(--olive-deep) !important;
+}
+
+/* Visible by default (SSR / no-JS). JS arms below-fold items as .is-pending. */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.35s ease-out,
+    transform 0.35s ease-out;
+}
+
+.reveal.is-pending {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal.is-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hover-zoom,
+  .hover-zoom img {
+    transition: none !important;
+  }
+}
+
+/* QA: ?motion=off — final state immediately */
+html[data-motion="off"] .reveal,
+html[data-motion="off"] .reveal.is-pending {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html[data-motion="off"] *,
+html[data-motion="off"] *::before,
+html[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+.hover-zoom img {
+  transition: transform 0.7s ease-out;
+}
+
+.hover-zoom:hover img {
+  transform: scale(1.04);
+}
+
+.botanical-divider {
+  width: 100%;
+  max-width: 180px;
+  height: 24px;
+  margin-inline: auto;
+  opacity: 0.35;
+  color: var(--olive);
+}
+
+.pb-mobile-bar {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .pb-mobile-bar {
+    padding-bottom: 0;
+  }
+}
+
+@keyframes eh-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eh-marquee {
+    animation: none !important;
+  }
+}
+
+html[data-motion="off"] .eh-marquee {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Banyan aerial-root sway — transform only, phase via --phase */
+@keyframes eh-banyan-sway {
+  0%,
+  100% {
+    transform: rotate(calc(var(--phase, 0.5) * -1.2deg));
+  }
+  50% {
+    transform: rotate(calc(var(--phase, 0.5) * 1.2deg));
+  }
+}
+
+.eh-banyan-sway {
+  animation: eh-banyan-sway calc(8s + var(--phase, 0.5) * 3s) ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eh-banyan-sway {
+    animation: none !important;
+  }
+}
+
+html[data-motion="off"] .eh-banyan-sway {
+  animation: none !important;
+  transform: none !important;
+}
+
+@keyframes eh-leaf-shimmer {
+  0%,
+  100% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.eh-leaf-shimmer {
+  animation: eh-leaf-shimmer 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eh-leaf-shimmer {
+    animation: none !important;
+  }
+}
+
+html[data-motion="off"] .eh-leaf-shimmer {
+  animation: none !important;
+}
+
+@keyframes eh-dappled {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(2%, 1.5%, 0);
+  }
+}
+
+.eh-dappled {
+  animation: eh-dappled 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eh-dappled {
+    animation: none !important;
+  }
+}
+
+html[data-motion="off"] .eh-dappled {
+  animation: none !important;
+  transform: none !important;
+}
