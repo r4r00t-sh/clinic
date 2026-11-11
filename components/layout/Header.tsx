@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { mainNav } from "@/lib/content/nav";
 import { site } from "@/lib/content/site";
 import { BookButton } from "@/components/booking/BookButton";
@@ -14,10 +15,15 @@ export function Header() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastY = useRef(0);
   const reduced = useReducedMotion();
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     setScrolled(y > thresholds.headerSolid);
@@ -49,91 +55,9 @@ export function Header() {
     menuTimeout.current = setTimeout(() => setOpenMenu(null), 150);
   }
 
-  return (
-    <motion.header
-      className={`sticky top-0 z-50 border-b ${
-        scrolled
-          ? "border-sand bg-bg/90 py-2 shadow-[var(--shadow-warm)] backdrop-blur-md"
-          : "border-transparent bg-bg/55 py-4 backdrop-blur-sm"
-      }`}
-      initial={false}
-      animate={{
-        opacity: 1,
-        y: hidden ? "-100%" : 0,
-      }}
-      transition={{ duration: durations.header, ease: "easeOut" }}
-    >
-      <div className="container-site flex items-center justify-between gap-4">
-        <div>
-          <Link
-            href="/"
-            className="relative block h-11 w-[160px] shrink-0 transition hover:opacity-90 md:h-12 md:w-[190px]"
-            aria-label={site.name}
-          >
-            {/* Full-colour original logo — no mask, filter or tint */}
-            <Image
-              src="/images/logo/1.png"
-              alt={site.name}
-              fill
-              className="object-contain object-left"
-              sizes="190px"
-              priority
-            />
-          </Link>
-        </div>
-
-        <nav
-          className="hidden items-center gap-0.5 min-[1100px]:flex"
-          aria-label="Primary"
-        >
-          {mainNav.map((item) =>
-            "children" in item && item.children ? (
-              <Dropdown
-                key={item.href}
-                item={item}
-                open={openMenu === item.label}
-                onOpen={() => openDropdown(item.label)}
-                onClose={closeDropdownDelayed}
-                onForceClose={() => setOpenMenu(null)}
-              />
-            ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3.5 text-[15px] text-ink hover:text-olive-deep"
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
-        </nav>
-
-        <div className="hidden items-center gap-3 min-[1100px]:flex">
-          <a
-            href={site.phoneHref}
-            className="whitespace-nowrap text-[15px] font-medium text-olive-deep hover:text-olive"
-          >
-            {site.phone}
-          </a>
-          <BookButton size="sm" className="whitespace-nowrap" />
-        </div>
-
-        <button
-          type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-sand min-[1100px]:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Menu</span>
-          <div className="space-y-1.5">
-            <span className={`block h-0.5 w-5 bg-ink transition ${open ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`block h-0.5 w-5 bg-ink transition ${open ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 w-5 bg-ink transition ${open ? "-translate-y-2 -rotate-45" : ""}`} />
-          </div>
-        </button>
-      </div>
-
+  const mobileMenu =
+    mounted &&
+    createPortal(
       <div
         className={`fixed inset-0 z-[70] min-[1100px]:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         aria-hidden={!open}
@@ -145,11 +69,11 @@ export function Header() {
           onClick={() => setOpen(false)}
         />
         <div
-          className={`absolute inset-y-0 right-0 flex w-[min(100%,360px)] flex-col bg-bg transition-transform duration-300 ${
+          className={`absolute inset-y-0 right-0 flex h-dvh max-h-dvh w-[min(100%,360px)] flex-col bg-bg transition-transform duration-300 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between border-b border-sand px-5 py-4">
+          <div className="flex shrink-0 items-center justify-between border-b border-sand px-5 py-4">
             <p className="font-serif text-xl text-olive-deep">Menu</p>
             <button
               type="button"
@@ -160,7 +84,7 @@ export function Header() {
               ✕
             </button>
           </div>
-          <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Mobile">
+          <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4" aria-label="Mobile">
             {mainNav.map((item) => (
               <div key={item.href} className="border-b border-sand/60 py-1">
                 <Link
@@ -193,12 +117,102 @@ export function Header() {
               {site.phone}
             </a>
           </nav>
-          <div className="border-t border-sand p-4">
+          <div className="shrink-0 border-t border-sand p-4">
             <BookButton className="w-full whitespace-nowrap" onClick={() => setOpen(false)} />
           </div>
         </div>
-      </div>
-    </motion.header>
+      </div>,
+      document.body,
+    );
+
+  return (
+    <>
+      <motion.header
+        className={`sticky top-0 z-50 border-b ${
+          scrolled
+            ? "border-sand bg-bg/90 py-2 shadow-[var(--shadow-warm)] backdrop-blur-md"
+            : "border-transparent bg-bg/55 py-4 backdrop-blur-sm"
+        }`}
+        initial={false}
+        animate={{
+          opacity: 1,
+          y: hidden ? "-100%" : 0,
+        }}
+        transition={{ duration: durations.header, ease: "easeOut" }}
+      >
+        <div className="container-site flex items-center justify-between gap-4">
+          <div>
+            <Link
+              href="/"
+              className="relative block h-11 w-[160px] shrink-0 transition hover:opacity-90 md:h-12 md:w-[190px]"
+              aria-label={site.name}
+            >
+              {/* Full-colour original logo — no mask, filter or tint */}
+              <Image
+                src="/images/logo/1.png"
+                alt={site.name}
+                fill
+                className="object-contain object-left"
+                sizes="190px"
+                priority
+              />
+            </Link>
+          </div>
+
+          <nav
+            className="hidden items-center gap-0.5 min-[1100px]:flex"
+            aria-label="Primary"
+          >
+            {mainNav.map((item) =>
+              "children" in item && item.children ? (
+                <Dropdown
+                  key={item.href}
+                  item={item}
+                  open={openMenu === item.label}
+                  onOpen={() => openDropdown(item.label)}
+                  onClose={closeDropdownDelayed}
+                  onForceClose={() => setOpenMenu(null)}
+                />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3.5 text-[15px] text-ink hover:text-olive-deep"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
+          </nav>
+
+          <div className="hidden items-center gap-3 min-[1100px]:flex">
+            <a
+              href={site.phoneHref}
+              className="whitespace-nowrap text-[15px] font-medium text-olive-deep hover:text-olive"
+            >
+              {site.phone}
+            </a>
+            <BookButton size="sm" className="whitespace-nowrap" />
+          </div>
+
+          <button
+            type="button"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-sand min-[1100px]:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">Menu</span>
+            <div className="space-y-1.5">
+              <span className={`block h-0.5 w-5 bg-ink transition ${open ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`block h-0.5 w-5 bg-ink transition ${open ? "opacity-0" : ""}`} />
+              <span className={`block h-0.5 w-5 bg-ink transition ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            </div>
+          </button>
+        </div>
+      </motion.header>
+      {mobileMenu}
+    </>
   );
 }
 
